@@ -42,8 +42,9 @@ q2 = patient_share('general', 'stomach')
 q3 = patient_share('sports', 'dislocation')
 
 # Median difference ages general/sports hospitals
-age_pivot = all_data.pivot_table(index='hospital', values='age', aggfunc='median')
-diff = age_pivot.loc['general'] - age_pivot.loc['sports']
+q4 = all_data.query("hospital == 'general'")["age"].median() - all_data.query("hospital == 'sports'")["age"].median()
+#age_pivot = all_data.pivot_table(index='hospital', values='age', aggfunc='median')
+#diff = age_pivot.loc['general'] - age_pivot.loc['sports']
 
 # blood_test_count
 highest_hospital = all_data[all_data['blood_test'] == 't']['hospital'].value_counts().idxmax(),
@@ -52,5 +53,5 @@ highest_count = all_data[all_data['blood_test'] == 't']['hospital'].value_counts
 print(f'The answer to the 1st question is {q1}')
 print(f'The answer to the 2nd question is {q2}')
 print(f'The answer to the 3rd question is {q3}')
-print(f'The answer to the 4th question is {float(diff.iloc[0])}')
+print(f'The answer to the 4th question is {q4}')
 print(f'The answer to the 5th question is {highest_hospital}, {highest_count} blood tests')
