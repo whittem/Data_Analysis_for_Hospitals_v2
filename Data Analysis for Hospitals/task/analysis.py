@@ -15,8 +15,7 @@ def handle_frame(name):
 def patient_share(hospital, diagnosis):
     df = all_data
     share_by_hospital = df.groupby("hospital")["diagnosis"].apply(lambda x: (x == diagnosis).mean())
-    x = share_by_hospital.loc[hospital].round(3)
-    return (x)
+    return share_by_hospital.loc[hospital].round(3)
 
 # Combine the csv files and call handle_frame function to amend column names
 all_data = pd.concat([handle_frame(r'./test//general.csv'), handle_frame(r'./test/prenatal.csv'), handle_frame(r'./test/sports.csv')])
