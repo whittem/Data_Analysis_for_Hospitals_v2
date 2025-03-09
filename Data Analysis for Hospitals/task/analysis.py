@@ -4,6 +4,7 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+import seaborn as sns
 
 pd.set_option('display.max_columns', 8)
 
@@ -54,7 +55,6 @@ highest_count = all_data[all_data['blood_test'] == 't']['hospital'].value_counts
 # Visualise data
 # Q1 - What is the most common age of a patient among all hospitals? Plot a histogram and choose one of the following age ranges: 0-15, 15-35, 35-55, 55-70, or 70-80.
 bins = [0, 15, 35, 55, 70, 80]
-all_data['age_bins'] = pd.cut(all_data['age'], bins=bins)
 plt.hist(all_data['age'], bins = bins)
 plt.title('Age Histogram')
 plt.xlabel('Age')
@@ -62,11 +62,17 @@ plt.ylabel('Count')
 plt.show()
 
 #all_data.to_csv('all_data.csv', index=False)
+# Q2 - What is the most common diagnosis among patients in all hospitals? Create a pie chart.
+all_data['diagnosis'].value_counts().plot(kind='pie', title='Common Hospital Diagnosis', autopct="%.2f%%")
 plt.show()
-#print(all_data['age_bins'])
 
-print('The answer to the 1st question is 15-35')
-#print(f'The answer to the 2nd question is {q2}')
-#print(f'The answer to the 3rd question is {q3}')
-#print(f'The answer to the 4th question is {q4}')
-#print(f'The answer to the 5th question is {highest_hospital}, {highest_count} blood tests')
+# Q3
+fig, axes = plt.subplots()
+sns.violinplot(x='hospital', y='height', data=all_data, ax=axes, palette='coolwarm', hue='hospital', legend=False)
+plt.show()
+
+
+print('The answer to the 1st question: 15-35')
+print('The answer to the 2nd question: pregnancy')
+print("The answer to the 3rd question: It's because the heights are in different units of measurement ")
+
