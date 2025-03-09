@@ -2,6 +2,8 @@
 # Dev branch Github
 
 import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
 
 pd.set_option('display.max_columns', 8)
 
@@ -49,8 +51,22 @@ q4 = all_data.query("hospital == 'general'")["age"].median() - all_data.query("h
 highest_hospital = all_data[all_data['blood_test'] == 't']['hospital'].value_counts().idxmax(),
 highest_count = all_data[all_data['blood_test'] == 't']['hospital'].value_counts().max()
 
-print(f'The answer to the 1st question is {q1}')
-print(f'The answer to the 2nd question is {q2}')
-print(f'The answer to the 3rd question is {q3}')
-print(f'The answer to the 4th question is {q4}')
-print(f'The answer to the 5th question is {highest_hospital}, {highest_count} blood tests')
+# Visualise data
+# Q1 - What is the most common age of a patient among all hospitals? Plot a histogram and choose one of the following age ranges: 0-15, 15-35, 35-55, 55-70, or 70-80.
+bins = [0, 15, 35, 55, 70, 80]
+all_data['age_bins'] = pd.cut(all_data['age'], bins=bins)
+plt.hist(all_data['age'], bins = bins)
+plt.title('Age Histogram')
+plt.xlabel('Age')
+plt.ylabel('Count')
+plt.show()
+
+#all_data.to_csv('all_data.csv', index=False)
+plt.show()
+#print(all_data['age_bins'])
+
+print('The answer to the 1st question is 15-35')
+#print(f'The answer to the 2nd question is {q2}')
+#print(f'The answer to the 3rd question is {q3}')
+#print(f'The answer to the 4th question is {q4}')
+#print(f'The answer to the 5th question is {highest_hospital}, {highest_count} blood tests')
